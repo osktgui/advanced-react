@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.12.3/libexec/bin/yarn.js build-node
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.12.3/libexec/bin/yarn.js webpack
 
 PATH: 
   /Users/luisoscategui/google-cloud-sdk/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/luisoscategui/2018/Personal/Cursos/React/AdvancedReact/package.json: Unexpected token ] in JSON at position 714
+  SyntaxError: /Users/luisoscategui/2018/Personal/Cursos/React/AdvancedReact/package.json: Unexpected token } in JSON at position 634
       at JSON.parse (<anonymous>)
       at /usr/local/Cellar/yarn/1.12.3/libexec/lib/cli.js:1631:59
       at Generator.next (<anonymous>)
@@ -31,12 +31,13 @@ npm manifest:
     "author": "Luis Oscátegui",
     "license": "MIT",
     "scripts": {
-      "dev": "NODE_PATH=./lib pm2 start lib/server.js --watch --interpreter babel-node",
+      "dev": "NODE_PATH=./lib pm2 start lib/server.js --watch --interpreter babel-node --name appDev",
       "webpack": "webpack -wd",
       "test": "jest --watch",
       "verify-tests": "jest --coverage",
       "build-webpack": "webpack -p",
-      "build-node": "babel lib -d build --copy-files"
+      "build-node": "babel lib -d build --copy-files",
+      "start-prod": "NODE_ENV=production NODE_PATH=./build pm2 start build/server.js -i max --name appProd",
     },
     "babel": {
       "presets": [
@@ -45,7 +46,7 @@ npm manifest:
       ],
       "plugins": [
         "transform-class-properties",
-        "transform-object-rest-spread",
+        "transform-object-rest-spread"
       ]
     },
     "devDependencies": {
